@@ -22,7 +22,7 @@ function onSearchAddress(ev) {
 	ev.preventDefault()
 	const address = document.querySelector('input').value
 	locService.getSearchLoc(address).then((latLng) => {
-		mapService.addMarker(latLng, address)
+		const marker = mapService.addMarker(latLng, address)
 		locService.addLoc(marker)
 		onPanTo(latLng.lat, latLng.lng)
 	})

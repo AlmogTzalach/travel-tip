@@ -13,11 +13,9 @@ var gMap
 function initMap(lat = 32.0749831, lng = 34.9120554) {
 	return _connectGoogleApi().then(() => {
 		gMap = new google.maps.Map(document.querySelector('#map'), {
-			center: { lat, lng },
+			center: new google.maps.LatLng(lat, lng),
 			zoom: 15,
 		})
-		locService.load()
-
 		// add listener for click on the map
 		gMap.addListener('click', (clickEv) => {
 			const marker = addMarker(clickEv.latLng, 'Hello World!')
@@ -30,6 +28,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 			const centerLoc = gMap.getCenter()
 			mapController.setQueryStringParams(centerLoc.lat(), centerLoc.lng())
 		})
+		locService.load()
 	})
 }
 

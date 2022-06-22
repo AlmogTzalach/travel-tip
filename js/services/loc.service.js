@@ -7,15 +7,12 @@ export const locService = {
 	load: loadLocsFromStorage,
 	getLocs,
 	getSearchLoc,
+	deleteLoc,
 }
 
 const STORAGE_KEY = 'locationsDB'
 
 const locs = storageService.load(STORAGE_KEY) || []
-// [
-// 	{ name: 'Greatplace', lat: 32.047104, lng: 34.832384 },
-// 	{ name: 'Neveragain', lat: 32.047201, lng: 34.832581 },
-// ]
 
 const gMarkers = {}
 
@@ -24,7 +21,7 @@ function loadLocsFromStorage() {
 
 	locs.forEach((loc) => {
 		const latLng = { lat: loc.lat, lng: loc.lng }
-		mapService.addMarker(latLng, loc.name)
+		gMarkers[loc.id] = mapService.addMarker(latLng, loc.name)
 	})
 }
 
@@ -43,7 +40,7 @@ function getLocs() {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
 			resolve(locs)
-		}, 2000)
+		}, 0)
 	})
 }
 
@@ -62,5 +59,11 @@ function addLoc(marker) {
 }
 
 function deleteLoc(id) {
-	gMarkers[id]
+	gMarkers[id].setMap(null)
+	delete gMarkers[id]
+
+	const idx = locs.findIndex((marker) => marker.id === id)
+	locs.splice(idx, 1)
+
+	storageService.save(STORAGE_KEY, locs)
 }

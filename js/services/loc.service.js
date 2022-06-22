@@ -8,6 +8,7 @@ export const locService = {
 	getLocs,
 	getSearchLoc,
 	deleteLoc,
+	changeName,
 }
 
 const STORAGE_KEY = 'locationsDB'
@@ -66,4 +67,10 @@ function deleteLoc(id) {
 	locs.splice(idx, 1)
 
 	storageService.save(STORAGE_KEY, locs)
+}
+
+function changeName(id, newName) {
+	const loc = locs.find((loc) => loc.id === id)
+
+	loc.name = newName
 }

@@ -24,6 +24,12 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 			locService.addLoc(marker)
 			mapController.renderLocsTable()
 		})
+
+		// add onmove listener to change query string params
+		gMap.addListener('idle', () => {
+			const centerLoc = gMap.getCenter()
+			mapController.setQueryStringParams(centerLoc.lat(), centerLoc.lng())
+		})
 	})
 }
 

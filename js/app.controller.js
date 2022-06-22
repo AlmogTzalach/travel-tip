@@ -23,6 +23,7 @@ function onSearchAddress(ev) {
 	const address = document.querySelector('input').value
 	locService.getSearchLoc(address).then((latLng) => {
 		mapService.addMarker(latLng, address)
+		locService.addLoc(marker)
 		onPanTo(latLng.lat, latLng.lng)
 	})
 }
@@ -81,4 +82,6 @@ function renderLocsTable() {
                         <button onclik="onDeleteLoc(${loc.id})">Delete</button>
                     </div>`
 	})
+
+	document.querySelector('.loc-table').innerHTML = strHTML
 }

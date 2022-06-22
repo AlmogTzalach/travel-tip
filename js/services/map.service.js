@@ -23,6 +23,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 		// add listener for click on the map
 		gMap.addListener('click', (clickEv) => {
 			const marker = addMarker(clickEv.latLng, 'Hello World!')
+			locService.addLoc(marker)
 		})
 	})
 }
@@ -33,8 +34,6 @@ function addMarker(loc, title) {
 		map: gMap,
 		title,
 	})
-
-	locService.addLoc(marker)
 
 	return marker
 }

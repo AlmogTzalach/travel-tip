@@ -6,6 +6,7 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+window.onSearchAddress = onSearchAddress
 
 function onInit() {
 	mapService
@@ -15,6 +16,15 @@ function onInit() {
 			renderLocsTable()
 		})
 		.catch(() => console.log('Error: cannot init map'))
+}
+
+function onSearchAddress(ev) {
+	ev.preventDefault()
+	const address = document.querySelector('input').value
+	locService.getSearchLoc(address).then((latLng) => {
+		mapService.addMarker(latLng, address)
+		onPanTo(latLng.lat, latLng.lng)
+	})
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition

@@ -16,6 +16,16 @@
 		<button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
 		<button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
 
+		<form onsubmit="onSearchAddress(event)">
+			<input type="text" name="txt" placeholder="Search for an address" />
+			<button>Search</button>
+		</form>
+
+		<button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
+		<button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
+		<button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
+		<button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
+
 		<p>You are at: <span class="user-pos"></span></p>
 		<p>Locations: <span class="locs"></span></p>
 

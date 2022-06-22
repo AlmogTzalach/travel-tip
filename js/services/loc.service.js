@@ -3,9 +3,10 @@ import { utilService } from './util.service.js'
 import { mapService } from './map.service.js'
 
 export const locService = {
-	getLocs,
 	addLoc,
 	load: loadLocsFromStorage,
+	getLocs,
+	getSearchLoc,
 }
 
 const STORAGE_KEY = 'locationsDB'
@@ -25,6 +26,17 @@ function loadLocsFromStorage() {
 		const latLng = { lat: loc.lat, lng: loc.lng }
 		mapService.addMarker(latLng, loc.name)
 	})
+}
+
+function getSearchLoc(address) {
+	const API_KEY = 'AIzaSyBS1RGUGXqbyr9Ry8oWmOOd5nQMSP7sgBk'
+	// address = address.replaceAll(' ', '+')
+
+	return fetch(
+		`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`
+	)
+		.then((res) => res.json())
+		.then((res) => res.results[0].geometry.location)
 }
 
 function getLocs() {

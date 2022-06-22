@@ -108,6 +108,7 @@ function onDeleteLoc(id) {
 
 function onChangeLocName(id) {
 	const newName = prompt('Name this location:')
+	if (!newName) return
 	locService.changeName(id, newName)
 	renderLocsTable()
 }

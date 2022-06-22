@@ -13,9 +13,10 @@ function onInit() {
 		.initMap()
 		.then(() => {
 			console.log('Map is ready')
-			renderLocsTable()
 		})
 		.catch(() => console.log('Error: cannot init map'))
+
+	renderLocsTable()
 }
 
 function onSearchAddress(ev) {
@@ -72,16 +73,15 @@ function onDeleteLoc(id) {
 }
 
 function renderLocsTable() {
-	const locs = locService.getLocs()
-	let strHTML = ''
-
-	locs.forEach((loc) => {
-		strHTML += `<div class="loc-line">
-                        <div>${loc.name}</div>
-                        <button onclick="onPanTo(${loc.lat}, ${loc.lng})">Go</button>
-                        <button onclik="onDeleteLoc(${loc.id})">Delete</button>
-                    </div>`
+	locService.getLocs().then((locs) => {
+		let strHTML = ''
+		locs.forEach((loc) => {
+			strHTML += `<div class="loc-line">
+                            <div>${loc.name}</div>
+                            <button onclick="onPanTo(${loc.lat}, ${loc.lng})">Go</button>
+                            <button onclik="onDeleteLoc(${loc.id})">Delete</button>
+                        </div>`
+		})
+		document.querySelector('.loc-table').innerHTML = strHTML
 	})
-
-	document.querySelector('.loc-table').innerHTML = strHTML
 }

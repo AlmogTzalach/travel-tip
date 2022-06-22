@@ -3,7 +3,7 @@ import { mapService } from './services/map.service.js'
 
 export const mapController = {
   renderLocsTable,
-  setQueryStringParams
+  setQueryStringParams,
 }
 
 window.onload = onInit
@@ -31,22 +31,30 @@ function onInit() {
 }
 
 function setQueryStringParams(lat, lng) {
-    const queryStringParams = `?lat=${lat}&lng=${lng}`
-    const newUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + queryStringParams
-    window.history.pushState({ path: newUrl }, '', newUrl)
+  const queryStringParams = `?lat=${lat}&lng=${lng}`
+  const newUrl =
+    window.location.protocol +
+    '//' +
+    window.location.host +
+    window.location.pathname +
+    queryStringParams
+  window.history.pushState({ path: newUrl }, '', newUrl)
 }
 
 function getQueryStringParams() {
   const queryStringParams = new URLSearchParams(window.location.search)
-  const lat =  queryStringParams.get('lat') || undefined
-  const lng =  queryStringParams.get('lng') || undefined
-  return {lat, lng}
+  const lat = queryStringParams.get('lat') || undefined
+  const lng = queryStringParams.get('lng') || undefined
+  return { lat, lng }
 }
 
 function onCopyURL(elBtn) {
-    navigator.clipboard.writeText(window.location.href);
-    elBtn.innerText = 'Copied!'
-    setTimeout((elBtn)=>elBtn.innerText = 'Copy URL', 1500)
+  navigator.clipboard.writeText(window.location.href)
+  elBtn.innerText = 'Copied!'
+  setTimeout(() => {
+    const elBtn = document.querySelector('.btn-copy-url')
+    elBtn.innerText = 'Copy URL'
+  }, 1500)
 }
 
 function onSearchAddress(ev) {

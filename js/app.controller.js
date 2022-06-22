@@ -14,14 +14,14 @@ window.onSearchAddress = onSearchAddress
 window.onDeleteLoc = onDeleteLoc
 
 function onInit() {
-  mapService
-    .initMap()
-    .then(() => {
-      console.log('Map is ready')
-    })
-    .catch(() => console.log('Error: cannot init map'))
+	mapService
+		.initMap()
+		.then(() => {
+			console.log('Map is ready')
+		})
+		.catch(() => console.log('Error: cannot init map'))
 
-  renderLocsTable()
+	renderLocsTable()
 }
 
 function onSearchAddress(ev) {
@@ -53,14 +53,14 @@ function onGetLocs() {
 }
 
 function onGetUserPos() {
-  getPosition()
-    .then((pos) => {
-      console.log('User position is:', pos.coords)
-      onPanTo(pos.coords.latitude, pos.coords.longitude)
-    })
-    .catch((err) => {
-      console.log('err!!!', err)
-    })
+	getPosition()
+		.then((pos) => {
+			console.log('User position is:', pos.coords)
+			onPanTo(pos.coords.latitude, pos.coords.longitude)
+		})
+		.catch((err) => {
+			console.log('err!!!', err)
+		})
 }
 
 function onPanTo(lat, lng) {
@@ -68,20 +68,22 @@ function onPanTo(lat, lng) {
 }
 
 function onDeleteLoc(id) {
-  locService.deleteLoc(id)
-  renderLocsTable()
+	locService.deleteLoc(id)
+	renderLocsTable()
 }
 
 function renderLocsTable() {
-  locService.getLocs().then((locs) => {
-    let strHTML = ''
-    locs.forEach((loc) => {
-      strHTML += `<div class="loc-line">
+	locService.getLocs().then((locs) => {
+		let strHTML = ''
+		locs.forEach((loc) => {
+			strHTML += `<div class="loc-line">
                             <div>${loc.name}</div>
-                            <button onclick="onPanTo(${loc.lat}, ${loc.lng})">Go</button>
-                            <button onclick="onDeleteLoc('${loc.id}')">Delete</button>
+                            <div class="loc-btns">
+                                <button onclick="onPanTo(${loc.lat}, ${loc.lng})">Go</button>
+                                <button onclick="onDeleteLoc('${loc.id}')">Delete</button>
+                            </div>
                         </div>`
-    })
-    document.querySelector('.loc-table').innerHTML = strHTML
-  })
+		})
+		document.querySelector('.loc-table').innerHTML = strHTML
+	})
 }

@@ -1,4 +1,5 @@
 import { storageService } from './storage.service.js'
+import { locService } from './loc.service.js'
 
 export const mapService = {
 	initMap,
@@ -17,14 +18,22 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
 			zoom: 15,
 		})
 		console.log('Map!', gMap)
+		locService.load()
+
+		// add listener for click on the map
+		gMap.addListener('click', (clickEv) => {
+			const marker = addMarker(clickEv.latLng, 'Hello World!')
+
+			locService.addLoc(marker)
+		})
 	})
 }
 
-function addMarker(loc) {
+function addMarker(loc, title) {
 	var marker = new google.maps.Marker({
 		position: loc,
 		map: gMap,
-		title: 'Hello World!',
+		title,
 	})
 	return marker
 }

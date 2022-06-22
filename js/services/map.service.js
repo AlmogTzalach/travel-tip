@@ -1,4 +1,3 @@
-import { storageService } from './storage.service.js'
 import { locService } from './loc.service.js'
 import { mapController } from '../app.controller.js'
 

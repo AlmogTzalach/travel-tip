@@ -28,7 +28,6 @@ function loadLocsFromStorage() {
 
 function getSearchLoc(address) {
 	const API_KEY = 'AIzaSyBS1RGUGXqbyr9Ry8oWmOOd5nQMSP7sgBk'
-	// address = address.replaceAll(' ', '+')
 
 	return fetch(
 		`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`
